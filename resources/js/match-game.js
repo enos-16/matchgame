@@ -74,5 +74,37 @@ MatchGame.renderCards = function(rndmArray, $game) {
  */
 
 MatchGame.flipCard = function($card, $game) {
+  if ($card.data('isFlipped')) {
+    return;
+  }
 
+  $card.css('background-color', $card.data('color'))
+    .text($card.data('value'))
+    .data('isFlipped', true);
+
+  var turnCards = $game.data('turnCards');
+  turnCards.push($card);
+
+  if (turnCards.length === 2) {
+    if (turnCards[0].data('value') === turnCards[1].data('value')) {
+      var cssSync = {
+        backgroundColor: 'rgb(153, 153, 153)',
+        color: 'rgb(204, 204, 204)'
+      };
+      turnCards[0].css(cssSync);
+      turnCards[1].css(cssSync);
+    } else {
+      var card1 = turnCards[0];
+      var card2 = turnCards[1];
+      window.setTimeout(function() {
+        card1.css('background-color', 'rgb(32, 64, 86)')
+          .text('')
+          .data('isFlipped', false);
+        card2.css('background-color', 'rgb(32, 64, 86)')
+          .text('')
+          .data('isFlipped', false);
+      }, 350);
+    }
+    $game.data('turnCards', []);
+  }
 };
