@@ -34,7 +34,38 @@ MatchGame.generaterndmArray = function() {
 */
 
 MatchGame.renderCards = function(rndmArray, $game) {
+  var colors = [
+    'hsl(25, 85%, 65%)',
+    'hsl(55, 85%, 65%)',
+    'hsl(90, 85%, 65%)',
+    'hsl(160, 85%, 65%)',
+    'hsl(220, 85%, 65%)',
+    'hsl(265, 85%, 65%)',
+    'hsl(310, 85%, 65%)',
+    'hsl(360, 85%, 65%)'
+  ];
 
+  $game.empty();
+  $game.data('turnCards', []);
+
+  for (var valueIndex = 0; valueIndex < rndmArray.length; valueIndex++) {
+    var value = rndmArray[valueIndex];
+    var color = colors[value - 1];
+    var data = {
+      value: value,
+      color: color,
+      isFlipped: false
+    };
+
+    var $cardElmnt = $('<div class="col-xs-3 card"></div>');
+    $cardElmnt.data(data);
+
+    $game.append($cardElmnt);
+  }
+
+  $('.card').click(function() {
+    MatchGame.flipCard($(this), $('#game'));
+  });
 };
 
 /*
