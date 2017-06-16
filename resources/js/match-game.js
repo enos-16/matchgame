@@ -9,18 +9,23 @@ var MatchGame = {};
   Generates and returns an array of matching card values.
  */
 
-MatchGame.generateCardValues = function() {
+MatchGame.generaterndmArray = function() {
   var oldArray = [];
-  for (i = 1; i < 9; i++) {
-    oldArray.push(1).push(1);
+
+  for (var value = 1; value <= 8; value++) {
+    oldArray.push(value);
+    oldArray.push(value);
   }
 
   var rndmArray = [];
+
   while (oldArray.length > 0) {
-    var rndmIndex = Math.floor(Math.random() * array.lenth) - 1;
-    var rndmNumber = oldArray.splice(0, 1);
+    var rndmIndex = Math.floor(Math.random() * oldArray.length);
+    var rndmNumber = oldArray.splice(rndmIndex, 1)[0];
     rndmArray.push(rndmNumber);
   }
+
+  return rndmArray;
 };
 
 /*
@@ -28,7 +33,7 @@ MatchGame.generateCardValues = function() {
   object.
 */
 
-MatchGame.renderCards = function(cardValues, $game) {
+MatchGame.renderCards = function(rndmArray, $game) {
 
 };
 
